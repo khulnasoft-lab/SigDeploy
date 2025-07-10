@@ -1,0 +1,3 @@
+[submodule "modules/copilot.vim"]
+	path = modules/copilot.vim
+	url = https://github.com/github/copilot.vim.git
