@@ -1,0 +1,43 @@
+[package]
+name = "client"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/client.rs"
+doctest = false
+
+[features]
+test-support = ["collections/test-support", "gpui/test-support", "rpc/test-support"]
+
+[dependencies]
+collections = { path = "../collections" }
+db = { path = "../db" }
+gpui = { path = "../gpui" }
+util = { path = "../util" }
+rpc = { path = "../rpc" }
+sum_tree = { path = "../sum_tree" }
+anyhow = "1.0.38"
+async-recursion = "0.3"
+async-tungstenite = { version = "0.16", features = ["async-tls"] }
+futures = "0.3"
+image = "0.23"
+isahc = "1.7"
+lazy_static = "1.4.0"
+log = { version = "0.4.16", features = ["kv_unstable_serde"] }
+parking_lot = "0.11.1"
+postage = { version = "0.4.1", features = ["futures-traits"] }
+rand = "0.8.3"
+smol = "1.2.5"
+thiserror = "1.0.29"
+time = { version = "0.3", features = ["serde", "serde-well-known"] }
+tiny_http = "0.8"
+uuid = { version = "1.1.2", features = ["v4"] }
+url = "2.2"
+serde = { version = "*", features = ["derive"] }
+tempfile = "3"
+
+[dev-dependencies]
+collections = { path = "../collections", features = ["test-support"] }
+gpui = { path = "../gpui", features = ["test-support"] }
+rpc = { path = "../rpc", features = ["test-support"] }

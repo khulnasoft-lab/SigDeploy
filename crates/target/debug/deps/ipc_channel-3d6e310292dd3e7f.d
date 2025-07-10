@@ -1,0 +1,11 @@
+/workspaces/SigDeploy/crates/target/debug/deps/ipc_channel-3d6e310292dd3e7f.d: /home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/lib.rs /home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/ipc.rs /home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/platform/mod.rs /home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/platform/unix/mod.rs /home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/router.rs
+
+/workspaces/SigDeploy/crates/target/debug/deps/libipc_channel-3d6e310292dd3e7f.rlib: /home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/lib.rs /home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/ipc.rs /home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/platform/mod.rs /home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/platform/unix/mod.rs /home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/router.rs
+
+/workspaces/SigDeploy/crates/target/debug/deps/libipc_channel-3d6e310292dd3e7f.rmeta: /home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/lib.rs /home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/ipc.rs /home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/platform/mod.rs /home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/platform/unix/mod.rs /home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/router.rs
+
+/home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/lib.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/ipc.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/platform/mod.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/platform/unix/mod.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ipc-channel-0.16.1/src/router.rs:

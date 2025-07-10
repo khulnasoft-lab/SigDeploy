@@ -1,0 +1,20 @@
+[package]
+name = "activity_indicator"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/activity_indicator.rs"
+doctest = false
+
+[dependencies]
+auto_update = { path = "../auto_update" }
+editor = { path = "../editor" }
+language = { path = "../language" }
+gpui = { path = "../gpui" }
+project = { path = "../project" }
+settings = { path = "../settings" }
+util = { path = "../util" }
+workspace = { path = "../workspace" }
+futures = "0.3"
+smallvec = { version = "1.6", features = ["union"] }

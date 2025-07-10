@@ -1,0 +1,14 @@
+[package]
+name = "collections"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/collections.rs"
+doctest = false
+
+[features]
+test-support = ["seahash"]
+
+[dependencies]
+seahash = { version = "4.1", optional = true }

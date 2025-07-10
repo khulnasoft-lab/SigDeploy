@@ -1,0 +1,12 @@
+[package]
+name = "snippet"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/snippet.rs"
+doctest = false
+
+[dependencies]
+anyhow = "1.0"
+smallvec = { version = "1.6", features = ["union"] }

@@ -1,0 +1,42 @@
+[package]
+description = "Shared logic for communication between the Zed app and the zed.dev server"
+edition = "2021"
+name = "rpc"
+version = "0.1.0"
+
+[lib]
+path = "src/rpc.rs"
+doctest = false
+
+[features]
+test-support = ["collections/test-support", "gpui/test-support"]
+
+[dependencies]
+clock = { path = "../clock" }
+collections = { path = "../collections" }
+gpui = { path = "../gpui", optional = true }
+util = { path = "../util" }
+anyhow = "1.0"
+async-lock = "2.4"
+async-tungstenite = "0.16"
+base64 = "0.13"
+futures = "0.3"
+parking_lot = "0.11.1"
+prost = "0.8"
+rand = "0.8"
+rsa = "0.4"
+serde = { version = "1.0", features = ["derive", "rc"] }
+smol-timeout = "0.6"
+tracing = { version = "0.1.34", features = ["log"] }
+zstd = "0.11"
+
+[build-dependencies]
+prost-build = "0.9"
+
+[dev-dependencies]
+collections = { path = "../collections", features = ["test-support"] }
+gpui = { path = "../gpui", features = ["test-support"] }
+smol = "1.2.5"
+tempdir = "0.3.7"
+ctor = "0.1"
+env_logger = "0.9"

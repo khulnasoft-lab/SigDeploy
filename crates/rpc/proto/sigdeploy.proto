@@ -1,0 +1,1086 @@
+syntax = "proto3";
+package zed.messages;
+
+message Envelope {
+    uint32 id = 1;
+    optional uint32 responding_to = 2;
+    optional uint32 original_sender_id = 3;
+    oneof payload {
+        Hello hello = 4;
+        Ack ack = 5;
+        Error error = 6;
+        Ping ping = 7;
+        Test test = 8;
+        
+        CreateRoom create_room = 9;
+        CreateRoomResponse create_room_response = 10;
+        JoinRoom join_room = 11;
+        JoinRoomResponse join_room_response = 12;
+        LeaveRoom leave_room = 13;
+        Call call = 14;
+        IncomingCall incoming_call = 15;
+        CallCanceled call_canceled = 16;
+        CancelCall cancel_call = 17;
+        DeclineCall decline_call = 18;
+        UpdateParticipantLocation update_participant_location = 19;
+        RoomUpdated room_updated = 20;
+
+        ShareProject share_project = 21;
+        ShareProjectResponse share_project_response = 22;
+        UnshareProject unshare_project = 23;
+        JoinProject join_project = 24;
+        JoinProjectResponse join_project_response = 25;
+        LeaveProject leave_project = 26;
+        AddProjectCollaborator add_project_collaborator = 27;
+        RemoveProjectCollaborator remove_project_collaborator = 28;
+
+        GetDefinition get_definition = 29;
+        GetDefinitionResponse get_definition_response = 30;
+        GetTypeDefinition get_type_definition = 31;
+        GetTypeDefinitionResponse get_type_definition_response = 32;
+        GetReferences get_references = 33;
+        GetReferencesResponse get_references_response = 34;
+        GetDocumentHighlights get_document_highlights = 35;
+        GetDocumentHighlightsResponse get_document_highlights_response = 36;
+        GetProjectSymbols get_project_symbols = 37;
+        GetProjectSymbolsResponse get_project_symbols_response = 38;
+        OpenBufferForSymbol open_buffer_for_symbol = 39;
+        OpenBufferForSymbolResponse open_buffer_for_symbol_response = 40;
+
+        UpdateProject update_project = 41;
+        RegisterProjectActivity register_project_activity = 42;
+        UpdateWorktree update_worktree = 43;
+        UpdateWorktreeExtensions update_worktree_extensions = 44;
+
+        CreateProjectEntry create_project_entry = 45;
+        RenameProjectEntry rename_project_entry = 46;
+        CopyProjectEntry copy_project_entry = 47;
+        DeleteProjectEntry delete_project_entry = 48;
+        ProjectEntryResponse project_entry_response = 49;
+
+        UpdateDiagnosticSummary update_diagnostic_summary = 50;
+        StartLanguageServer start_language_server = 51;
+        UpdateLanguageServer update_language_server = 52;
+
+        OpenBufferById open_buffer_by_id = 53;
+        OpenBufferByPath open_buffer_by_path = 54;
+        OpenBufferResponse open_buffer_response = 55;
+        CreateBufferForPeer create_buffer_for_peer = 56;
+        UpdateBuffer update_buffer = 57;
+        UpdateBufferFile update_buffer_file = 58;
+        SaveBuffer save_buffer = 59;
+        BufferSaved buffer_saved = 60;
+        BufferReloaded buffer_reloaded = 61;
+        ReloadBuffers reload_buffers = 62;
+        ReloadBuffersResponse reload_buffers_response = 63;
+        FormatBuffers format_buffers = 64;
+        FormatBuffersResponse format_buffers_response = 65;
+        GetCompletions get_completions = 66;
+        GetCompletionsResponse get_completions_response = 67;
+        ApplyCompletionAdditionalEdits apply_completion_additional_edits = 68;
+        ApplyCompletionAdditionalEditsResponse apply_completion_additional_edits_response = 69;
+        GetCodeActions get_code_actions = 70;
+        GetCodeActionsResponse get_code_actions_response = 71;
+        GetHover get_hover = 72;
+        GetHoverResponse get_hover_response = 73;
+        ApplyCodeAction apply_code_action = 74;
+        ApplyCodeActionResponse apply_code_action_response = 75;
+        PrepareRename prepare_rename = 76;
+        PrepareRenameResponse prepare_rename_response = 77;
+        PerformRename perform_rename = 78;
+        PerformRenameResponse perform_rename_response = 79;
+        SearchProject search_project = 80;
+        SearchProjectResponse search_project_response = 81;
+
+        GetChannels get_channels = 82;
+        GetChannelsResponse get_channels_response = 83;
+        JoinChannel join_channel = 84;
+        JoinChannelResponse join_channel_response = 85;
+        LeaveChannel leave_channel = 86;
+        SendChannelMessage send_channel_message = 87;
+        SendChannelMessageResponse send_channel_message_response = 88;
+        ChannelMessageSent channel_message_sent = 89;
+        GetChannelMessages get_channel_messages = 90;
+        GetChannelMessagesResponse get_channel_messages_response = 91;
+
+        UpdateContacts update_contacts = 92;
+        UpdateInviteInfo update_invite_info = 93;
+        ShowContacts show_contacts = 94;
+
+        GetUsers get_users = 95;
+        FuzzySearchUsers fuzzy_search_users = 96;
+        UsersResponse users_response = 97;
+        RequestContact request_contact = 98;
+        RespondToContactRequest respond_to_contact_request = 99;
+        RemoveContact remove_contact = 100;
+
+        Follow follow = 101;
+        FollowResponse follow_response = 102;
+        UpdateFollowers update_followers = 103;
+        Unfollow unfollow = 104;
+        GetPrivateUserInfo get_private_user_info = 105;
+        GetPrivateUserInfoResponse get_private_user_info_response = 106;
+        UpdateDiffBase update_diff_base = 107;
+    }
+}
+
+// Messages
+
+message Hello {
+    uint32 peer_id = 1;
+}
+
+message Ping {}
+
+message Ack {}
+
+message Error {
+    string message = 1;
+}
+
+message Test {
+    uint64 id = 1;
+}
+
+message CreateRoom {}
+
+message CreateRoomResponse {
+    Room room = 1;
+    optional LiveKitConnectionInfo live_kit_connection_info = 2;
+}
+
+message JoinRoom {
+    uint64 id = 1;
+}
+
+message JoinRoomResponse {
+    Room room = 1;
+    optional LiveKitConnectionInfo live_kit_connection_info = 2;
+}
+
+message LeaveRoom {
+    uint64 id = 1;
+}
+
+message Room {
+    uint64 id = 1;
+    repeated Participant participants = 2;
+    repeated uint64 pending_participant_user_ids = 3;
+    string live_kit_room = 4;
+}
+
+message Participant {
+    uint64 user_id = 1;
+    uint32 peer_id = 2;
+    repeated ParticipantProject projects = 3;
+    ParticipantLocation location = 4;
+}
+
+message ParticipantProject {
+    uint64 id = 1;
+    repeated string worktree_root_names = 2;
+}
+
+message ParticipantLocation {
+    oneof variant {
+        SharedProject shared_project = 1;
+        UnsharedProject unshared_project = 2;
+        External external = 3;
+    }
+    
+    message SharedProject {
+        uint64 id = 1;
+    }
+    
+    message UnsharedProject {}
+    
+    message External {}
+}
+
+message Call {
+    uint64 room_id = 1;
+    uint64 recipient_user_id = 2;
+    optional uint64 initial_project_id = 3;
+}
+
+message IncomingCall {
+    uint64 room_id = 1;
+    uint64 caller_user_id = 2;
+    repeated uint64 participant_user_ids = 3;
+    optional ParticipantProject initial_project = 4;
+}
+
+message CallCanceled {}
+
+message CancelCall {
+    uint64 room_id = 1;
+    uint64 recipient_user_id = 2;
+}
+
+message DeclineCall {
+    uint64 room_id = 1;
+}
+
+message UpdateParticipantLocation {
+    uint64 room_id = 1;
+    ParticipantLocation location = 2;
+}
+
+message RoomUpdated {
+    Room room = 1;
+}
+
+message LiveKitConnectionInfo {
+    string server_url = 1;
+    string token = 2;
+}
+
+message ShareProject {
+    uint64 room_id = 1;
+    repeated WorktreeMetadata worktrees = 2;
+}
+
+message ShareProjectResponse {
+    uint64 project_id = 1;
+}
+
+message UnshareProject {
+    uint64 project_id = 1;
+}
+
+message UpdateProject {
+    uint64 project_id = 1;
+    repeated WorktreeMetadata worktrees = 2;
+}
+
+message RegisterProjectActivity {
+    uint64 project_id = 1;
+}
+
+message JoinProject {
+    uint64 project_id = 1;
+}
+
+message JoinProjectResponse {
+    uint32 replica_id = 1;
+    repeated WorktreeMetadata worktrees = 2;
+    repeated Collaborator collaborators = 3;
+    repeated LanguageServer language_servers = 4;
+}
+
+message LeaveProject {
+    uint64 project_id = 1;
+}
+
+message UpdateWorktree {
+    uint64 project_id = 1;
+    uint64 worktree_id = 2;
+    string root_name = 3;
+    repeated Entry updated_entries = 4;
+    repeated uint64 removed_entries = 5;
+    uint64 scan_id = 6;
+    bool is_last_update = 7;
+    bytes abs_path = 8;
+}
+
+message UpdateWorktreeExtensions {
+    uint64 project_id = 1;
+    uint64 worktree_id = 2;
+    repeated string extensions = 3;
+    repeated uint32 counts = 4;
+}
+
+message CreateProjectEntry {
+    uint64 project_id = 1;
+    uint64 worktree_id = 2;
+    bytes path = 3;
+    bool is_directory = 4;
+}
+
+message RenameProjectEntry {
+    uint64 project_id = 1;
+    uint64 entry_id = 2;
+    bytes new_path = 3;
+}
+
+message CopyProjectEntry {
+    uint64 project_id = 1;
+    uint64 entry_id = 2;
+    bytes new_path = 3;
+}
+
+message DeleteProjectEntry {
+    uint64 project_id = 1;
+    uint64 entry_id = 2;
+}
+
+message ProjectEntryResponse {
+    Entry entry = 1;
+    uint64 worktree_scan_id = 2;
+}
+
+message AddProjectCollaborator {
+    uint64 project_id = 1;
+    Collaborator collaborator = 2;
+}
+
+message RemoveProjectCollaborator {
+    uint64 project_id = 1;
+    uint32 peer_id = 2;
+}
+
+message GetDefinition {
+     uint64 project_id = 1;
+     uint64 buffer_id = 2;
+     Anchor position = 3;
+     repeated VectorClockEntry version = 4;
+ }
+
+message GetDefinitionResponse {
+    repeated LocationLink links = 1;
+}
+
+message GetTypeDefinition {
+     uint64 project_id = 1;
+     uint64 buffer_id = 2;
+     Anchor position = 3;
+     repeated VectorClockEntry version = 4;
+ }
+
+message GetTypeDefinitionResponse {
+    repeated LocationLink links = 1;
+}
+
+message GetReferences {
+     uint64 project_id = 1;
+     uint64 buffer_id = 2;
+     Anchor position = 3;
+     repeated VectorClockEntry version = 4;
+ }
+
+message GetReferencesResponse {
+    repeated Location locations = 1;
+}
+
+message GetDocumentHighlights {
+     uint64 project_id = 1;
+     uint64 buffer_id = 2;
+     Anchor position = 3;
+     repeated VectorClockEntry version = 4;
+ }
+
+message GetDocumentHighlightsResponse {
+    repeated DocumentHighlight highlights = 1;
+}
+
+message Location {
+    uint64 buffer_id = 1;
+    Anchor start = 2;
+    Anchor end = 3;
+}
+
+message LocationLink {
+    optional Location origin = 1;
+    Location target = 2;
+}
+
+message DocumentHighlight {
+    Kind kind = 1;
+    Anchor start = 2;
+    Anchor end = 3;
+
+    enum Kind {
+        Text = 0;
+        Read = 1;
+        Write = 2;
+    }
+}
+
+message GetProjectSymbols {
+    uint64 project_id = 1;
+    string query = 2;
+}
+
+message GetProjectSymbolsResponse {
+    repeated Symbol symbols = 4;
+}
+
+message Symbol {
+    uint64 source_worktree_id = 1;
+    uint64 worktree_id = 2;
+    string language_server_name = 3;
+    string name = 4;
+    int32 kind = 5;
+    string path = 6;
+    Point start = 7;
+    Point end = 8;
+    bytes signature = 9;
+}
+
+message OpenBufferForSymbol {
+    uint64 project_id = 1;
+    Symbol symbol = 2;
+}
+
+message OpenBufferForSymbolResponse {
+    uint64 buffer_id = 1;
+}
+
+message OpenBufferByPath {
+    uint64 project_id = 1;
+    uint64 worktree_id = 2;
+    string path = 3;
+}
+
+message OpenBufferById {
+    uint64 project_id = 1;
+    uint64 id = 2;
+}
+
+message OpenBufferResponse {
+    uint64 buffer_id = 1;
+}
+
+message CreateBufferForPeer {
+    uint64 project_id = 1;
+    uint32 peer_id = 2;
+    oneof variant {
+        BufferState state = 3;
+        BufferChunk chunk = 4;
+    }
+}
+
+message UpdateBuffer {
+    uint64 project_id = 1;
+    uint64 buffer_id = 2;
+    repeated Operation operations = 3;
+}
+
+message UpdateBufferFile {
+    uint64 project_id = 1;
+    uint64 buffer_id = 2;
+    File file = 3;
+}
+
+message SaveBuffer {
+    uint64 project_id = 1;
+    uint64 buffer_id = 2;
+    repeated VectorClockEntry version = 3;
+}
+
+message BufferSaved {
+    uint64 project_id = 1;
+    uint64 buffer_id = 2;
+    repeated VectorClockEntry version = 3;
+    Timestamp mtime = 4;
+    string fingerprint = 5;
+}
+
+message BufferReloaded {
+    uint64 project_id = 1;
+    uint64 buffer_id = 2;
+    repeated VectorClockEntry version = 3;
+    Timestamp mtime = 4;
+    string fingerprint = 5;
+    LineEnding line_ending = 6;
+}
+
+message ReloadBuffers {
+    uint64 project_id = 1;
+    repeated uint64 buffer_ids = 2;
+}
+
+message ReloadBuffersResponse {
+    ProjectTransaction transaction = 1;
+}
+
+enum FormatTrigger {
+    Save = 0;
+    Manual = 1;
+}
+
+message FormatBuffers {
+    uint64 project_id = 1;
+    FormatTrigger trigger = 2;
+    repeated uint64 buffer_ids = 3;
+}
+
+message FormatBuffersResponse {
+    ProjectTransaction transaction = 1;
+}
+
+message GetCompletions {
+    uint64 project_id = 1;
+    uint64 buffer_id = 2;
+    Anchor position = 3;
+    repeated VectorClockEntry version = 4;
+}
+
+message GetCompletionsResponse {
+    repeated Completion completions = 1;
+    repeated VectorClockEntry version = 2;
+}
+
+message ApplyCompletionAdditionalEdits {
+    uint64 project_id = 1;
+    uint64 buffer_id = 2;
+    Completion completion = 3;
+}
+
+message ApplyCompletionAdditionalEditsResponse {
+    Transaction transaction = 1;
+}
+
+message Completion {
+    Anchor old_start = 1;
+    Anchor old_end = 2;
+    string new_text = 3;
+    bytes lsp_completion = 4;
+}
+
+message GetCodeActions {
+    uint64 project_id = 1;
+    uint64 buffer_id = 2;
+    Anchor start = 3;
+    Anchor end = 4;
+    repeated VectorClockEntry version = 5;
+}
+
+message GetCodeActionsResponse {
+    repeated CodeAction actions = 1;
+    repeated VectorClockEntry version = 2;
+}
+
+message GetHover {
+    uint64 project_id = 1;
+    uint64 buffer_id = 2;
+    Anchor position = 3;
+    repeated VectorClockEntry version = 5;
+}
+
+message GetHoverResponse {
+    optional Anchor start = 1;
+    optional Anchor end = 2;
+    repeated HoverBlock contents = 3;
+}
+
+message HoverBlock {
+    string text = 1;
+    optional string language = 2;
+}
+
+message ApplyCodeAction {
+    uint64 project_id = 1;
+    uint64 buffer_id = 2;
+    CodeAction action = 3;
+}
+
+message ApplyCodeActionResponse {
+    ProjectTransaction transaction = 1;
+}
+
+message PrepareRename {
+    uint64 project_id = 1;
+    uint64 buffer_id = 2;
+    Anchor position = 3;
+    repeated VectorClockEntry version = 4;
+}
+
+message PrepareRenameResponse {
+    bool can_rename = 1;
+    Anchor start = 2;
+    Anchor end = 3;
+    repeated VectorClockEntry version = 4;
+}
+
+message PerformRename {
+    uint64 project_id = 1;
+    uint64 buffer_id = 2;
+    Anchor position = 3;
+    string new_name = 4;
+    repeated VectorClockEntry version = 5;
+}
+
+message PerformRenameResponse {
+    ProjectTransaction transaction = 2;
+}
+
+message SearchProject {
+    uint64 project_id = 1;
+    string query = 2;
+    bool regex = 3;
+    bool whole_word = 4;
+    bool case_sensitive = 5;
+}
+
+message SearchProjectResponse {
+    repeated Location locations = 1;
+}
+
+message CodeAction {
+    Anchor start = 1;
+    Anchor end = 2;
+    bytes lsp_action = 3;
+}
+
+message ProjectTransaction {
+    repeated uint64 buffer_ids = 1;
+    repeated Transaction transactions = 2;
+}
+
+message Transaction {
+    LocalTimestamp id = 1;
+    repeated LocalTimestamp edit_ids = 2;
+    repeated VectorClockEntry start = 3;
+}
+
+message LocalTimestamp {
+    uint32 replica_id = 1;
+    uint32 value = 2;
+}
+
+message LanguageServer {
+    uint64 id = 1;
+    string name = 2;
+}
+
+message StartLanguageServer {
+    uint64 project_id = 1;
+    LanguageServer server = 2;
+}
+
+message UpdateDiagnosticSummary {
+    uint64 project_id = 1;
+    uint64 worktree_id = 2;
+    DiagnosticSummary summary = 3;
+}
+
+message DiagnosticSummary {
+    string path = 1;
+    uint64 language_server_id = 2;
+    uint32 error_count = 3;
+    uint32 warning_count = 4;
+}
+
+message UpdateLanguageServer {
+    uint64 project_id = 1;
+    uint64 language_server_id = 2;
+    oneof variant {
+        LspWorkStart work_start = 3;
+        LspWorkProgress work_progress = 4;
+        LspWorkEnd work_end = 5;
+        LspDiskBasedDiagnosticsUpdating disk_based_diagnostics_updating = 6;
+        LspDiskBasedDiagnosticsUpdated disk_based_diagnostics_updated = 7;
+    }
+}
+
+message LspWorkStart {
+    string token = 1;
+    optional string message = 2;
+    optional uint32 percentage = 3;
+}
+
+message LspWorkProgress {
+    string token = 1;
+    optional string message = 2;
+    optional uint32 percentage = 3;
+}
+
+message LspWorkEnd {
+    string token = 1;
+}
+
+message LspDiskBasedDiagnosticsUpdating {}
+
+message LspDiskBasedDiagnosticsUpdated {}
+
+message GetChannels {}
+
+message GetChannelsResponse {
+    repeated Channel channels = 1;
+}
+
+message JoinChannel {
+    uint64 channel_id = 1;
+}
+
+message JoinChannelResponse {
+    repeated ChannelMessage messages = 1;
+    bool done = 2;
+}
+
+message LeaveChannel {
+    uint64 channel_id = 1;
+}
+
+message GetUsers {
+    repeated uint64 user_ids = 1;
+}
+
+message FuzzySearchUsers {
+    string query = 1;
+}
+
+message UsersResponse {
+    repeated User users = 1;
+}
+
+message RequestContact {
+    uint64 responder_id = 1;
+}
+
+message RemoveContact {
+    uint64 user_id = 1;
+}
+
+message RespondToContactRequest {
+    uint64 requester_id = 1;
+    ContactRequestResponse response = 2;
+}
+
+enum ContactRequestResponse {
+    Accept = 0;
+    Decline = 1;
+    Block = 2;
+    Dismiss = 3;
+}
+
+message SendChannelMessage {
+    uint64 channel_id = 1;
+    string body = 2;
+    Nonce nonce = 3;
+}
+
+message SendChannelMessageResponse {
+    ChannelMessage message = 1;
+}
+
+message ChannelMessageSent {
+    uint64 channel_id = 1;
+    ChannelMessage message = 2;
+}
+
+message GetChannelMessages {
+    uint64 channel_id = 1;
+    uint64 before_message_id = 2;
+}
+
+message GetChannelMessagesResponse {
+    repeated ChannelMessage messages = 1;
+    bool done = 2;
+}
+
+message UpdateContacts {
+    repeated Contact contacts = 1;
+    repeated uint64 remove_contacts = 2;
+    repeated IncomingContactRequest incoming_requests = 3;
+    repeated uint64 remove_incoming_requests = 4;
+    repeated uint64 outgoing_requests = 5;
+    repeated uint64 remove_outgoing_requests = 6;
+}
+
+message UpdateInviteInfo {
+    string url = 1;
+    uint32 count = 2;
+}
+
+message ShowContacts {}
+
+message IncomingContactRequest {
+    uint64 requester_id = 1;
+    bool should_notify = 2;
+}
+
+message UpdateDiagnostics {
+    uint32 replica_id = 1;
+    uint32 lamport_timestamp = 2;
+    repeated Diagnostic diagnostics = 3;
+}
+
+message Follow {
+    uint64 project_id = 1;
+    uint32 leader_id = 2;
+}
+
+message FollowResponse {
+    optional uint64 active_view_id = 1;
+    repeated View views = 2;
+}
+
+message UpdateFollowers {
+    uint64 project_id = 1;
+    repeated uint32 follower_ids = 2;
+    oneof variant {
+        UpdateActiveView update_active_view = 3;
+        View create_view = 4;
+        UpdateView update_view = 5;
+    }
+}
+
+message Unfollow {
+    uint64 project_id = 1;
+    uint32 leader_id = 2;
+}
+
+message GetPrivateUserInfo {}
+
+message GetPrivateUserInfoResponse {
+    string metrics_id = 1;
+    bool staff = 2;
+}
+
+// Entities
+
+message UpdateActiveView {
+    optional uint64 id = 1;
+    optional uint32 leader_id = 2;
+}
+
+message UpdateView {
+    uint64 id = 1;
+    optional uint32 leader_id = 2;
+
+    oneof variant {
+        Editor editor = 3;
+    }
+
+    message Editor {
+        repeated Selection selections = 1;
+        Anchor scroll_top_anchor = 2;
+        float scroll_x = 3;
+        float scroll_y = 4;
+    }
+}
+
+message View {
+    uint64 id = 1;
+    optional uint32 leader_id = 2;
+
+    oneof variant {
+        Editor editor = 3;
+    }
+
+    message Editor {
+        uint64 buffer_id = 1;
+        repeated Selection selections = 2;
+        Anchor scroll_top_anchor = 3;
+        float scroll_x = 4;
+        float scroll_y = 5;
+    }
+}
+
+message Collaborator {
+    uint32 peer_id = 1;
+    uint32 replica_id = 2;
+    uint64 user_id = 3;
+}
+
+message User {
+    uint64 id = 1;
+    string github_login = 2;
+    string avatar_url = 3;
+}
+
+message File {
+    uint64 worktree_id = 1;
+    uint64 entry_id = 2;
+    string path = 3;
+    Timestamp mtime = 4;
+    bool is_deleted = 5;
+}
+
+message Entry {
+    uint64 id = 1;
+    bool is_dir = 2;
+    bytes path = 3;
+    uint64 inode = 4;
+    Timestamp mtime = 5;
+    bool is_symlink = 6;
+    bool is_ignored = 7;
+}
+
+message BufferState {
+    uint64 id = 1;
+    optional File file = 2;
+    string base_text = 3;
+    optional string diff_base = 4;
+    LineEnding line_ending = 5;
+}
+
+message BufferChunk {
+    uint64 buffer_id = 1;
+    repeated Operation operations = 2;
+    bool is_last = 3;
+}
+
+enum LineEnding {
+    Unix = 0;
+    Windows = 1;
+}
+
+message SelectionSet {
+    uint32 replica_id = 1;
+    repeated Selection selections = 2;
+    uint32 lamport_timestamp = 3;
+    bool line_mode = 4;
+    CursorShape cursor_shape = 5;
+}
+
+message Selection {
+    uint64 id = 1;
+    Anchor start = 2;
+    Anchor end = 3;
+    bool reversed = 4;
+}
+
+enum CursorShape {
+    CursorBar = 0;
+    CursorBlock = 1;
+    CursorUnderscore = 2;
+    CursorHollow = 3;
+}
+
+message Anchor {
+    uint32 replica_id = 1;
+    uint32 local_timestamp = 2;
+    uint64 offset = 3;
+    Bias bias = 4;
+    optional uint64 buffer_id = 5;
+}
+
+enum Bias {
+    Left = 0;
+    Right = 1;
+}
+
+message Diagnostic {
+    Anchor start = 1;
+    Anchor end = 2;
+    Severity severity = 3;
+    string message = 4;
+    optional string code = 5;
+    uint64 group_id = 6;
+    bool is_primary = 7;
+    bool is_valid = 8;
+    bool is_disk_based = 9;
+    bool is_unnecessary = 10;
+
+    enum Severity {
+        None = 0;
+        Error = 1;
+        Warning = 2;
+        Information = 3;
+        Hint = 4;
+    }
+}
+
+message Operation {
+    oneof variant {
+        Edit edit = 1;
+        Undo undo = 2;
+        UpdateSelections update_selections = 3;
+        UpdateDiagnostics update_diagnostics = 4;
+        UpdateCompletionTriggers update_completion_triggers = 5;
+    }
+
+    message Edit {
+        uint32 replica_id = 1;
+        uint32 local_timestamp = 2;
+        uint32 lamport_timestamp = 3;
+        repeated VectorClockEntry version = 4;
+        repeated Range ranges = 5;
+        repeated string new_text = 6;
+    }
+
+    message Undo {
+        uint32 replica_id = 1;
+        uint32 local_timestamp = 2;
+        uint32 lamport_timestamp = 3;
+        repeated VectorClockEntry version = 4;
+        repeated UndoCount counts = 5;
+    }
+
+    message UpdateSelections {
+        uint32 replica_id = 1;
+        uint32 lamport_timestamp = 2;
+        repeated Selection selections = 3;
+        bool line_mode = 4;
+        CursorShape cursor_shape = 5;
+    }
+
+    message UpdateCompletionTriggers {
+        uint32 replica_id = 1;
+        uint32 lamport_timestamp = 2;
+        repeated string triggers = 3;
+    }
+}
+
+message UndoMapEntry {
+    uint32 replica_id = 1;
+    uint32 local_timestamp = 2;
+    repeated UndoCount counts = 3;
+}
+
+message UndoCount {
+    uint32 replica_id = 1;
+    uint32 local_timestamp = 2;
+    uint32 count = 3;
+}
+
+message VectorClockEntry {
+    uint32 replica_id = 1;
+    uint32 timestamp = 2;
+}
+
+message Timestamp {
+    uint64 seconds = 1;
+    uint32 nanos = 2;
+}
+
+message Range {
+    uint64 start = 1;
+    uint64 end = 2;
+}
+
+message Point {
+    uint32 row = 1;
+    uint32 column = 2;
+}
+
+message Nonce {
+    uint64 upper_half = 1;
+    uint64 lower_half = 2;
+}
+
+message Channel {
+    uint64 id = 1;
+    string name = 2;
+}
+
+message ChannelMessage {
+    uint64 id = 1;
+    string body = 2;
+    uint64 timestamp = 3;
+    uint64 sender_id = 4;
+    Nonce nonce = 5;
+}
+
+message Contact {
+    uint64 user_id = 1;
+    bool online = 2;
+    bool busy = 3;
+    bool should_notify = 4;
+}
+
+message WorktreeMetadata {
+    uint64 id = 1;
+    string root_name = 2;
+    bool visible = 3;
+    bytes abs_path = 4;
+}
+
+message UpdateDiffBase {
+    uint64 project_id = 1;
+    uint64 buffer_id = 2;
+    optional string diff_base = 3;
+}
