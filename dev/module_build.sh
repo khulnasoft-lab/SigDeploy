@@ -4,7 +4,7 @@ set -euo pipefail
 set -x
 
 SRC_DIR="modules"
-MODULE="copilot"
+MODULE="copilot.vim"
 OUT_DIR="$SRC_DIR/$MODULE/build/"
 TAR_FILE="$OUT_DIR/copilot.tar.gz"
 MODULES_TOML="modules.toml"
